@@ -1,0 +1,19 @@
+services:
+  frontend:
+    build: ./frontend   # this looks inside calculator-app/frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend     # this MUST point to the folder containing Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"

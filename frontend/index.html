@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator App</title>
+</head>
+<body>
+  <h2>Simple Calculator</h2>
+  <input type="number" id="num1">
+  <select id="operator">
+    <option value="add">+</option>
+    <option value="subtract">-</option>
+    <option value="multiply">*</option>
+    <option value="divide">/</option>
+  </select>
+  <input type="number" id="num2">
+  <button onclick="calculate()">Calculate</button>
+  <h3 id="result">Result: </h3>
+
+  <script>
+    async function calculate() {
+      const n1 = document.getElementById("num1").value;
+      const n2 = document.getElementById("num2").value;
+      const op = document.getElementById("operator").value;
+      const res = await fetch(`http://localhost:5000/${op}?num1=${n1}&num2=${n2}`);
+      const data = await res.json();
+      document.getElementById("result").innerText = "Result: " + (data.result || data.error);
+    }
+  </script>
+</body>
+</html>
